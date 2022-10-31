@@ -1,5 +1,6 @@
 package android.tvz.hr.newz.di
 
+import android.tvz.hr.newz.network.NewsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
