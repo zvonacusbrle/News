@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Newz</string>
+    <string name="recycler_view_title">title</string>
 </resources>
