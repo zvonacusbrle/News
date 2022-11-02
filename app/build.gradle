@@ -16,7 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "API_KEY", "\"ca89f73c7db442ccb125c564dd370bfc\""
+        buildConfigField "String", "API_KEY", "\"c94bbd31229f4e4e830d2b9c8a5bc631\""
     }
 
     buildTypes {
@@ -73,5 +73,10 @@ dependencies {
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Pagination
+    def paging_version = "3.1.1"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
 
 }

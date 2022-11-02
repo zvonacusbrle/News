@@ -9,11 +9,5 @@ class ArticleRepository @Inject constructor(
     private val newsService: NewsService,
     private val mapper: ArticleNetworkMapper
 ) {
-    suspend fun getTopArticles(): List<Article> {
-        val topArticles = newsService.getTopHeadlinesArticles().articleResponses
-            .map { article ->
-                mapper.mapFromResponse(article)
-            }
-        return topArticles
-    }
+
 }
