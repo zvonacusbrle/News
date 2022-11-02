@@ -1,10 +1,8 @@
 package android.tvz.hr.newz
 
-import android.content.ContentValues.TAG
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleResponse
 import android.tvz.hr.newz.pagination.ArticlePaging
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -20,9 +18,8 @@ class SharedViewModel @Inject constructor(
     private val newsService: NewsService
 ) : ViewModel(){
 
-    fun getArticles() : Flow<PagingData<ArticleResponse>> {
+    fun getArticles(articlesGroup: String) : Flow<PagingData<ArticleResponse>> {
         return Pager(config = PagingConfig(pageSize = 1, maxSize = 5),
-        pagingSourceFactory = {ArticlePaging(newsService)}).flow.cachedIn(viewModelScope)
-
+        pagingSourceFactory = {ArticlePaging(newsService, articlesGroup)}).flow.cachedIn(viewModelScope)
     }
 }

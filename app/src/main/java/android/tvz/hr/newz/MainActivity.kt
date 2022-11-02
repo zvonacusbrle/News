@@ -27,12 +27,14 @@ class MainActivity : AppCompatActivity() {
 
 
         lifecycleScope.launchWhenCreated {
-            sharedViewModel.getArticles().collect{
+            sharedViewModel.getArticles(TOP_ARTICLES).collect{
                 adapter.submitData(it)
             }
         }
-
     }
 
 
 }
+
+const val TOP_ARTICLES = "topArticles"
+const val ALL_ARTICLES = "allArticles"

@@ -14,4 +14,10 @@ interface NewsService {
     suspend fun getTopHeadlinesArticles(
         @Query("page")  page:Int = 1
     ) : Response<ArticleListResponse>
+
+    @GET("everything?q=tesla&sortBy=publishedAt&apiKey=${BuildConfig.API_KEY}")
+    suspend fun getAllArticles(
+        @Query("page") page: Int = 1
+    ) : Response<ArticleListResponse>
+
 }

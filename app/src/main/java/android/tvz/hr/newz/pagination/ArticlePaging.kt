@@ -1,19 +1,21 @@
 package android.tvz.hr.newz.pagination
 
-import android.content.ContentValues.TAG
+import android.tvz.hr.newz.TOP_ARTICLES
 import android.tvz.hr.newz.network.NewsService
+import android.tvz.hr.newz.network.model.ArticleListResponse
 import android.tvz.hr.newz.network.model.ArticleResponse
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
-import java.lang.Exception
 import javax.inject.Inject
 
 class ArticlePaging @Inject constructor(
-    private val newsService: NewsService
+    private val newsService: NewsService,
+    private val articlesGroup: String,
 ) : PagingSource<Int, ArticleResponse>() {
+    lateinit var response: Response<ArticleListResponse>
     override fun getRefreshKey(state: PagingState<Int, ArticleResponse>): Int? {
         return state.anchorPosition?.let {
             val anchorPage = state.closestPageToPosition(it)
@@ -23,10 +25,13 @@ class ArticlePaging @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleResponse> {
         try {
+
             val currentPageList = params.key ?: 1
-            val response = newsService.getTopHeadlinesArticles(currentPageList)
+            response = checkArticleGroup(newsService,articlesGroup,currentPageList)
+
             val responseList = mutableListOf<ArticleResponse>()
             val data = response.body()?.articleResponses ?: emptyList()
+
             responseList.addAll(data)
 
             val prevKey = if (currentPageList == 1) null else currentPageList - 1
@@ -43,5 +48,16 @@ class ArticlePaging @Inject constructor(
             return LoadResult.Error(e)
         }
 
+    }
+
+    private suspend fun checkArticleGroup(
+        newsService: NewsService,
+        articlesGroup: String,
+        currentPageList: Int
+    ): Response<ArticleListResponse> {
+        if(articlesGroup == TOP_ARTICLES){
+            return newsService.getTopHeadlinesArticles(currentPageList)
+        }
+        return newsService.getAllArticles(currentPageList)
     }
 }
