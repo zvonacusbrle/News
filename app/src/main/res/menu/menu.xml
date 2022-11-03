@@ -5,6 +5,7 @@
 
     <item
         android:id="@+id/menu_sort"
+        android:icon="@drawable/ic_baseline_sort_24"
         android:title="@string/menu_sort_by"
         app:showAsAction="never">
 
@@ -12,12 +13,12 @@
             <item
                 android:id="@+id/menu_sortAsc"
                 android:title="@string/menu_by_ascending_date"
-                app:showAsAction="never"/>
+                app:showAsAction="never" />
 
             <item
                 android:id="@+id/menu_sortDesc"
                 android:title="@string/menu_by_descending_date"
-                app:showAsAction="never"/>
+                app:showAsAction="never" />
 
         </menu>
     </item>

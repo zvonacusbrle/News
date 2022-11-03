@@ -2,10 +2,9 @@
     <string name="app_name">Newz</string>
     <string name="recycler_view_title">title</string>
     <string name="menu_sort_by">Sort by</string>
-    <string name="menu_by_ascending_date">By ascending date</string>
-    <string name="menu_by_descending_date">By descending date</string>
+    <string name="menu_by_ascending_date">Ascending date</string>
+    <string name="menu_by_descending_date">Descending date</string>
     <string name="bottom_navigation_top_articles">Top articles</string>
     <string name="bottom_navigation_all_articles">All articles</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
