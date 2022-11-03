@@ -1,4 +1,4 @@
-package android.tvz.hr.newz
+package android.tvz.hr.newz.ui.viewmodel
 
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleResponse

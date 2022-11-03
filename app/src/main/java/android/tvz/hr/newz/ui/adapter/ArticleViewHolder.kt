@@ -1,4 +1,4 @@
-package android.tvz.hr.newz
+package android.tvz.hr.newz.ui.adapter
 
 import android.tvz.hr.newz.databinding.ArticleRowBinding
 import android.tvz.hr.newz.network.model.ArticleResponse
