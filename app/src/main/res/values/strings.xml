@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Newz</string>
     <string name="recycler_view_title">title</string>
+    <string name="menu_sort_by">Sort by</string>
+    <string name="menu_by_ascending_date">By ascending date</string>
+    <string name="menu_by_descending_date">By descending date</string>
+    <string name="bottom_navigation_top_articles">Top articles</string>
+    <string name="bottom_navigation_all_articles">All articles</string>
 </resources>

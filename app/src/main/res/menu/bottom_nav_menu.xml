@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/bottom_navigation_top_articles"
+        android:icon="@drawable/ic_top10"
+        android:id="@+id/topArticles"/>
+    <item android:title="@string/bottom_navigation_all_articles"
+        android:icon="@drawable/ic_news"
+        android:id="@+id/allArticles"/>
+</menu>
