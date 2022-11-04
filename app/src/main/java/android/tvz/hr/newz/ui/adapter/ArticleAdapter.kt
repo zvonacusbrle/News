@@ -1,19 +1,13 @@
-package android.tvz.hr.newz
+package android.tvz.hr.newz.ui.adapter
 
-import android.content.ContentValues.TAG
-import android.tvz.hr.newz.databinding.ActivityMainBinding.inflate
 import android.tvz.hr.newz.databinding.ArticleRowBinding
-import android.tvz.hr.newz.databinding.ArticleRowBinding.inflate
 import android.tvz.hr.newz.network.model.ArticleResponse
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 
-class ArticleAdapter : PagingDataAdapter<ArticleResponse,ArticleViewHolder>(DiffCallback()) {
+class ArticleAdapter : PagingDataAdapter<ArticleResponse, ArticleViewHolder>(DiffCallback()) {
  companion object {
         private class DiffCallback : DiffUtil.ItemCallback<ArticleResponse>() {
             //2
@@ -26,7 +20,7 @@ class ArticleAdapter : PagingDataAdapter<ArticleResponse,ArticleViewHolder>(Diff
         }
     }
 
-    override fun onBindViewHolder(holder:ArticleViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
     }
 
