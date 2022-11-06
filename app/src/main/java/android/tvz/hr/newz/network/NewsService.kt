@@ -10,15 +10,16 @@ import retrofit2.http.Query
 
 interface NewsService {
 
-    @GET("top-headlines?sources=bbc-news&apiKey=${BuildConfig.API_KEY}")
+    @GET("top-headlines?sources=bbc-news,techcrunch&apiKey=${BuildConfig.API_KEY}")
     suspend fun getTopHeadlinesArticles(
         @Query("page")  page:Int = 1,
         @Query("q") query: String,
     ) : Response<ArticleListResponse>
 
-    @GET("everything?q=tesla&sortBy=publishedAt&apiKey=${BuildConfig.API_KEY}")
+    @GET("everything?sortBy=publishedAt&apiKey=${BuildConfig.API_KEY}")
     suspend fun getAllArticles(
-        @Query("page") page: Int = 1
+        @Query("page") page: Int = 1,
+        @Query("q") query: String="tesla",
     ) : Response<ArticleListResponse>
 
 }

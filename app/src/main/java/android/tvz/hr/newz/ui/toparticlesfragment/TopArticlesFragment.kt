@@ -9,13 +9,17 @@ import android.view.ViewGroup
 import android.tvz.hr.newz.R
 import android.tvz.hr.newz.TOP_ARTICLES
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
+import android.tvz.hr.newz.ui.adapter.ArticleAdapter
+import android.tvz.hr.newz.ui.adapter.ArticleLoadStateAdapter
 import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.launch
 
 
 private const val ARG_PARAM1 = "param1"
@@ -44,6 +48,19 @@ class TopArticlesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTopArticlesBinding.inflate(inflater, container, false)
+        val adapter = ArticleAdapter()
+
+        lifecycleScope.launch {
+            viewModel.news.collect { articles ->
+                binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)
+                binding.recyclerViewTop.adapter = adapter.withLoadStateHeaderAndFooter(
+                    header = ArticleLoadStateAdapter { adapter.retry() },
+                    footer = ArticleLoadStateAdapter { adapter.retry() }
+                )
+                adapter.submitData(articles)
+            }
+        }
+
 
 
         return binding.root

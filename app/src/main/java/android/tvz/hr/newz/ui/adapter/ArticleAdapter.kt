@@ -1,14 +1,17 @@
 package android.tvz.hr.newz.ui.adapter
 
+import android.content.ContentValues.TAG
 import android.tvz.hr.newz.databinding.ArticleRowBinding
 import android.tvz.hr.newz.network.model.ArticleResponse
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import kotlin.math.log
 
 class ArticleAdapter : PagingDataAdapter<ArticleResponse, ArticleViewHolder>(DiffCallback()) {
- companion object {
+    companion object {
         private class DiffCallback : DiffUtil.ItemCallback<ArticleResponse>() {
             //2
             override fun areItemsTheSame(oldItem: ArticleResponse, newItem: ArticleResponse) =

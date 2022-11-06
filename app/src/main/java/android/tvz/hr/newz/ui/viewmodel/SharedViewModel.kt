@@ -1,9 +1,11 @@
 package android.tvz.hr.newz.ui.viewmodel
 
+import android.content.ContentValues.TAG
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleResponse
 import android.tvz.hr.newz.pagination.ArticlePaging
 import android.tvz.hr.newz.repository.ArticleRepository
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -15,6 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import retrofit2.http.Query
 import javax.inject.Inject
+import kotlin.math.log
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
@@ -38,4 +41,4 @@ class SharedViewModel @Inject constructor(
 
 }
 
-private const val DEFAULT_QUERY = "bitcoin"
+private const val DEFAULT_QUERY = "tesla"
