@@ -3,6 +3,7 @@ package android.tvz.hr.newz.ui.viewmodel
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleResponse
 import android.tvz.hr.newz.pagination.ArticlePaging
+import android.tvz.hr.newz.repository.ArticleRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -10,16 +11,31 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import retrofit2.http.Query
 import javax.inject.Inject
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
-    private val newsService: NewsService
+    private val newsService: NewsService,
+    private val articleRepository: ArticleRepository
 ) : ViewModel(){
 
-    fun getArticles(articlesGroup: String) : Flow<PagingData<ArticleResponse>> {
-        return Pager(config = PagingConfig(pageSize = 1, maxSize = 5),
-        pagingSourceFactory = {ArticlePaging(newsService, articlesGroup)}).flow.cachedIn(viewModelScope)
+    private val _currentQuery = MutableStateFlow<String>(DEFAULT_QUERY)
+    val currentQuery = _currentQuery.asStateFlow()
+
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val news = _currentQuery.flatMapLatest { query ->
+        articleRepository.getSearchResult(query).cachedIn(viewModelScope)
     }
+
+    fun searchNews(query: String){
+        _currentQuery.value = query
+    }
+
+
 }
+
+private const val DEFAULT_QUERY = "bitcoin"

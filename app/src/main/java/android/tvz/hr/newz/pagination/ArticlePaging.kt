@@ -8,12 +8,13 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
 import retrofit2.Response
+import retrofit2.http.Query
 import java.io.IOException
 import javax.inject.Inject
 
 class ArticlePaging @Inject constructor(
     private val newsService: NewsService,
-    private val articlesGroup: String,
+    private val query: String
 ) : PagingSource<Int, ArticleResponse>() {
     lateinit var response: Response<ArticleListResponse>
     override fun getRefreshKey(state: PagingState<Int, ArticleResponse>): Int? {
@@ -27,7 +28,8 @@ class ArticlePaging @Inject constructor(
         try {
 
             val currentPageList = params.key ?: 1
-            response = checkArticleGroup(newsService,articlesGroup,currentPageList)
+            response = newsService.getTopHeadlinesArticles(currentPageList, query)
+           //     checkArticleGroup(newsService,articlesGroup,currentPageList)
 
             val responseList = mutableListOf<ArticleResponse>()
             val data = response.body()?.articleResponses ?: emptyList()
@@ -50,14 +52,5 @@ class ArticlePaging @Inject constructor(
 
     }
 
-    private suspend fun checkArticleGroup(
-        newsService: NewsService,
-        articlesGroup: String,
-        currentPageList: Int
-    ): Response<ArticleListResponse> {
-        if(articlesGroup == TOP_ARTICLES){
-            return newsService.getTopHeadlinesArticles(currentPageList)
-        }
-        return newsService.getAllArticles(currentPageList)
-    }
+
 }

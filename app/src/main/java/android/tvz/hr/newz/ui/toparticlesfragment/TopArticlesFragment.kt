@@ -1,17 +1,27 @@
 package android.tvz.hr.newz.ui.toparticlesfragment
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.tvz.hr.newz.R
+import android.tvz.hr.newz.TOP_ARTICLES
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
+import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
+import android.util.Log
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
 
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+@AndroidEntryPoint
 class TopArticlesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -19,6 +29,7 @@ class TopArticlesFragment : Fragment() {
 
     private var _binding: FragmentTopArticlesBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +52,7 @@ class TopArticlesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
     }
 
     companion object {
@@ -61,5 +73,10 @@ class TopArticlesFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
