@@ -15,30 +15,33 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import retrofit2.http.Query
 import javax.inject.Inject
 import kotlin.math.log
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
-    private val newsService: NewsService,
     private val articleRepository: ArticleRepository
-) : ViewModel(){
+) : ViewModel() {
 
-    private val _currentQuery = MutableStateFlow<String>(DEFAULT_QUERY)
-    val currentQuery = _currentQuery.asStateFlow()
+    private val currentQuery = MutableStateFlow<String>(DEFAULT_QUERY)
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val news = _currentQuery.flatMapLatest { query ->
+    val news = currentQuery.flatMapLatest { query ->
         articleRepository.getSearchResult(query).cachedIn(viewModelScope)
     }
 
-    fun searchNews(query: String){
-        _currentQuery.value = query
+    fun searchNews(query: String) {
+        if(query.isEmpty()){
+            currentQuery.value = DEFAULT_QUERY
+        } else {
+            currentQuery.value = query
+        }
+        Log.d(TAG, "searchNews: ${currentQuery.value}")
     }
-
-
 }
 
-private const val DEFAULT_QUERY = "tesla"
+
+const val DEFAULT_QUERY = "US"

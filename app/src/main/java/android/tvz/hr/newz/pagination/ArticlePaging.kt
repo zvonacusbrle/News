@@ -30,16 +30,12 @@ class ArticlePaging @Inject constructor(
         try {
 
             val currentPageList = params.key ?: 1
-            response = newsService.getAllArticles(currentPageList, query)
-           //     checkArticleGroup(newsService,articlesGroup,currentPageList)
+            response = newsService.getTopHeadlinesArticles(currentPageList, query)
 
             val responseList = mutableListOf<ArticleResponse>()
             val data = response.body()?.articleResponses ?: emptyList()
-
             responseList.addAll(data)
-
             val prevKey = if (currentPageList == 1) null else currentPageList - 1
-
             return LoadResult.Page(
                 responseList,
                 prevKey,

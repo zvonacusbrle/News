@@ -3,21 +3,22 @@ package android.tvz.hr.newz.ui.toparticlesfragment
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.tvz.hr.newz.R
 import android.tvz.hr.newz.TOP_ARTICLES
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
 import android.tvz.hr.newz.ui.adapter.ArticleAdapter
 import android.tvz.hr.newz.ui.adapter.ArticleLoadStateAdapter
+import android.tvz.hr.newz.ui.viewmodel.DEFAULT_QUERY
 import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
 import android.util.Log
+import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 
@@ -51,7 +52,7 @@ class TopArticlesFragment : Fragment() {
         val adapter = ArticleAdapter()
 
         lifecycleScope.launch {
-            viewModel.news.collect { articles ->
+            viewModel.news.collectLatest { articles ->
                 binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)
                 binding.recyclerViewTop.adapter = adapter.withLoadStateHeaderAndFooter(
                     header = ArticleLoadStateAdapter { adapter.retry() },
@@ -63,26 +64,37 @@ class TopArticlesFragment : Fragment() {
 
 
 
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.topArticlesSearchBar.apply {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
 
+
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                        binding.recyclerViewTop.scrollToPosition(0)
+                        if (newText != null) {
+                            viewModel.searchNews(newText)
+                        }
+
+
+                   return true
+                }
+            })
+        }
 
     }
 
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TopArticlesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
         fun newInstance(param1: String, param2: String) =
             TopArticlesFragment().apply {
                 arguments = Bundle().apply {

@@ -12,7 +12,7 @@ class ArticleLoadStateAdapter(
     private val retry: () -> Unit
 ) : LoadStateAdapter<ArticleLoadStateAdapter.LoadStateViewHolder>() {
 
-    inner class LoadStateViewHolder(private val binding: ArticleLoadStateFooterBinding) :
+    inner class LoadStateViewHolder(private val binding: ArticleLoadStateFooterBinding ) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.buttonRetry.setOnClickListener {
@@ -22,6 +22,7 @@ class ArticleLoadStateAdapter(
 
         fun bind(loadState: LoadState) {
             binding.apply {
+                progressBar.isVisible = loadState is LoadState.Loading
                 buttonRetry.isVisible = loadState !is LoadState.Loading
                 textViewError.isVisible = loadState !is LoadState.Loading
             }
