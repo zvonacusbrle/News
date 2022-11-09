@@ -14,6 +14,17 @@
         android:layout_height="wrap_content"
         android:queryHint="Search"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="86dp"
+        android:layout_height="88dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:max="3"
+        android:progress="100"
+        android:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="100dp"
         android:id="@+id/recyclerViewTop"

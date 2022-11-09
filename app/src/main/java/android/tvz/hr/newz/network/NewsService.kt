@@ -16,10 +16,12 @@ interface NewsService {
         @Query("q") query: String? = null,
     ) : Response<ArticleListResponse>
 
-    @GET("everything?sortBy=publishedAt&apiKey=${BuildConfig.API_KEY}")
+    @GET("everything?apiKey=${BuildConfig.API_KEY}")
     suspend fun getAllArticles(
         @Query("page") page: Int = 1,
         @Query("q") query: String="tesla",
+        @Query("sortBy") sortBy: String,
+
     ) : Response<ArticleListResponse>
 
 }

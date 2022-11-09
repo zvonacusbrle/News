@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import kotlin.math.log
 
 class ArticleAdapter : PagingDataAdapter<ArticleResponse, ArticleViewHolder>(DiffCallback()) {
     companion object {
@@ -25,6 +24,7 @@ class ArticleAdapter : PagingDataAdapter<ArticleResponse, ArticleViewHolder>(Dif
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
+      //  Log.d(TAG, "onBindViewHolder: ${getItem(position)?.title}")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {

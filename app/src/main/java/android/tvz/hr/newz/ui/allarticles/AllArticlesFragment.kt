@@ -1,17 +1,14 @@
 package android.tvz.hr.newz.ui.allarticles
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.tvz.hr.newz.databinding.FragmentAllArticlesBinding
+import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.tvz.hr.newz.R
-import android.tvz.hr.newz.databinding.FragmentAllArticlesBinding
-import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
-import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-
 
 
 @AndroidEntryPoint
