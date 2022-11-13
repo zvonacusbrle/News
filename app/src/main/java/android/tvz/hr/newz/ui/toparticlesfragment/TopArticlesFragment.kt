@@ -4,14 +4,10 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.tvz.hr.newz.ALL_ARTICLES
 import androidx.fragment.app.Fragment
-import android.tvz.hr.newz.R
-import android.tvz.hr.newz.TOP_ARTICLES
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
-import android.tvz.hr.newz.state.SortOrderState
 import android.tvz.hr.newz.ui.StateUI
 import android.tvz.hr.newz.ui.adapter.ArticleAdapter
 import android.tvz.hr.newz.ui.adapter.ArticleLoadStateAdapter
-import android.tvz.hr.newz.ui.viewmodel.DEFAULT_QUERY
 import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
 import android.util.Log
 import android.view.*
@@ -24,11 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -69,13 +61,13 @@ class TopArticlesFragment : Fragment() {
                  when(state){
                      is StateUI.Success -> {
                            state.articles.collectLatest { articles ->
+                               binding.progressBar.visibility = GONE
                                binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)
                                binding.recyclerViewTop.adapter = adapter.withLoadStateHeaderAndFooter(
                                    header = ArticleLoadStateAdapter { adapter.retry() },
                                    footer = ArticleLoadStateAdapter { adapter.retry() }
                                )
                                adapter.submitData(articles)
-                               binding.progressBar.visibility = GONE
                            }
                      }
                      StateUI.Loading ->

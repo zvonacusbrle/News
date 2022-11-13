@@ -3,12 +3,14 @@
 package android.tvz.hr.newz.ui.viewmodel
 
 import android.content.ContentValues.TAG
+import android.tvz.hr.newz.network.model.ArticleResponse
 import android.tvz.hr.newz.repository.ArticleRepository
 import android.tvz.hr.newz.state.SortOrderState
 import android.tvz.hr.newz.ui.StateUI
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -16,7 +18,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.log
 
 @OptIn(FlowPreview::class)
 @HiltViewModel
@@ -36,6 +37,9 @@ class SharedViewModel @Inject constructor(
             @OptIn(ExperimentalCoroutinesApi::class)
             val flow = currentQuery
                 .debounce(1300)
+                .filter {
+                    it.trim().isNotEmpty()
+                }
                 .map { it.trim().lowercase(Locale.ROOT) }
                 .distinctUntilChanged()
                 .combine(sortState) { query, sort -> query to sort }
@@ -53,17 +57,21 @@ class SharedViewModel @Inject constructor(
     fun searchNews(query: String) {
         if (query.isNotEmpty()) {
             currentQuery.value = query
+        } else {
+            currentQuery.value = DEFAULT_QUERY
         }
+
     }
 
     fun setSortState(sortOrderState: SortOrderState) {
            sortState.value = sortOrderState
-        Log.d(TAG, "setSortState: ${sortState.value}")
     }
 
     fun setArticleGroup(group: String) {
         articleGroup.value = group
     }
+
+
 
 
 

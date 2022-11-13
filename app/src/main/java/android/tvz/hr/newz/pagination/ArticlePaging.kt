@@ -31,9 +31,10 @@ class ArticlePaging @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleResponse> {
         try {
             val currentPageList = params.key ?: 1
-            response = getResponse(currentPageList, newsService,query,sortState, articleGroup)
+            response =  newsService.getTopHeadlinesArticles(currentPageList, query)
+            // getResponse(currentPageList, newsService,query,sortState, articleGroup)
             Log.d(TAG, "load: $sortState $articleGroup" )
-             //   newsService.getTopHeadlinesArticles(currentPageList, query)
+                newsService.getTopHeadlinesArticles(currentPageList, query)
 
             val responseList = mutableListOf<ArticleResponse>()
             val data = response.body()?.articleResponses ?: emptyList()
