@@ -6,10 +6,30 @@
 
     tools:context=".ui.toparticlesfragment.TopArticlesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/topArticlesSearchBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:queryHint="Search"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="86dp"
+        android:layout_height="88dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:max="3"
+        android:progress="100"
+        android:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="100dp"
+        android:id="@+id/recyclerViewTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 
 </FrameLayout>
