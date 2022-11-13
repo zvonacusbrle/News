@@ -8,10 +8,26 @@
         android:id="@+id/topArticlesFragment"
         android:name="android.tvz.hr.newz.ui.toparticlesfragment.TopArticlesFragment"
         android:label="Top articles"
-        tools:layout="@layout/fragment_top_articles" />
+        tools:layout="@layout/fragment_top_articles" >
+        <action
+            android:id="@+id/action_topArticlesFragment_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/allArticlesFragment"
         android:name="android.tvz.hr.newz.ui.allarticles.AllArticlesFragment"
         android:label="All articles"
         tools:layout="@layout/fragment_all_articles" />
+    <fragment
+        android:id="@+id/articleDetailsFragment"
+        android:name="android.tvz.hr.newz.ui.articledetails.ArticleDetailsFragment"
+        android:label="ArticleDetailsFragment" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>

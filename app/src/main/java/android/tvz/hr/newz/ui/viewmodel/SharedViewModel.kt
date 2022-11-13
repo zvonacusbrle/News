@@ -2,15 +2,11 @@
 
 package android.tvz.hr.newz.ui.viewmodel
 
-import android.content.ContentValues.TAG
-import android.tvz.hr.newz.network.model.ArticleResponse
 import android.tvz.hr.newz.repository.ArticleRepository
 import android.tvz.hr.newz.state.SortOrderState
 import android.tvz.hr.newz.ui.StateUI
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

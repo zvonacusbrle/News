@@ -3,21 +3,25 @@ package android.tvz.hr.newz.ui.toparticlesfragment
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.tvz.hr.newz.ALL_ARTICLES
-import androidx.fragment.app.Fragment
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
 import android.tvz.hr.newz.ui.StateUI
 import android.tvz.hr.newz.ui.adapter.ArticleAdapter
 import android.tvz.hr.newz.ui.adapter.ArticleLoadStateAdapter
 import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -36,6 +40,7 @@ class TopArticlesFragment : Fragment() {
     private var _binding: FragmentTopArticlesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SharedViewModel by viewModels()
+    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +55,9 @@ class TopArticlesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTopArticlesBinding.inflate(inflater, container, false)
-        val adapter = ArticleAdapter()
+        val adapter = ArticleAdapter(
+            onArticleClicked = { title ->  startArticleDetailFragment(title) }
+        )
         viewModel.setArticleGroup(ALL_ARTICLES)
 
 
@@ -80,6 +87,8 @@ class TopArticlesFragment : Fragment() {
 
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -129,9 +138,15 @@ class TopArticlesFragment : Fragment() {
             }
     }
 
+    private fun startArticleDetailFragment(title: String) {
+        val action = TopArticlesFragmentDirections.actionTopArticlesFragmentToArticleDetailsFragment(title)
+        findNavController().navigate(action)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
 }
+const val ARTICLE_TAG_FRAGMENT_KEY = "tagKey"
