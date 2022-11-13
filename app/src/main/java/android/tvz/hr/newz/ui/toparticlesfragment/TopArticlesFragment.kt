@@ -3,6 +3,7 @@ package android.tvz.hr.newz.ui.toparticlesfragment
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.tvz.hr.newz.ALL_ARTICLES
+import android.tvz.hr.newz.R
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
 import android.tvz.hr.newz.ui.StateUI
 import android.tvz.hr.newz.ui.adapter.ArticleAdapter
@@ -15,6 +16,8 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -23,6 +26,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
@@ -141,6 +145,17 @@ class TopArticlesFragment : Fragment() {
     private fun startArticleDetailFragment(title: String) {
         val action = TopArticlesFragmentDirections.actionTopArticlesFragmentToArticleDetailsFragment(title)
         findNavController().navigate(action)
+    }
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible =
+            true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible =
+            false
     }
 
     override fun onDestroyView() {
