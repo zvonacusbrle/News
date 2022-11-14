@@ -1,15 +1,11 @@
 package android.tvz.hr.newz.ui.articledetails
 
-import android.tvz.hr.newz.network.model.ArticleListResponse
-import android.tvz.hr.newz.network.model.ArticleResponse
-import android.tvz.hr.newz.network.model.Source
-import android.tvz.hr.newz.ui.viewmodel.DEFAULT_QUERY
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,14 +14,14 @@ class ArticleDetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val currentQuery = MutableStateFlow(QUERY)
-
+    private val _stateUI = MutableStateFlow<ArticleDetailsStateUI>(ArticleDetailsStateUI.Loading)
+    val stateUI  = _stateUI.asStateFlow()
 
     init {
         viewModelScope.launch {
            val articleDetails = articleDetailsRepository.getArticleByTitle(currentQuery.value)
+            _stateUI.value = ArticleDetailsStateUI.Success(articleDetails)
         }
-
-
     }
 
     fun updateCurrentQuery(title: String) {
