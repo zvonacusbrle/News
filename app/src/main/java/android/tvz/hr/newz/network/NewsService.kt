@@ -3,7 +3,6 @@ package android.tvz.hr.newz.network
 
 import android.tvz.hr.newz.BuildConfig
 import android.tvz.hr.newz.network.model.ArticleListResponse
-import android.tvz.hr.newz.network.model.ArticleResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -23,5 +22,12 @@ interface NewsService {
         @Query("sortBy") sortBy: String,
 
     ) : Response<ArticleListResponse>
+
+    @GET("everything?apiKey=${BuildConfig.API_KEY}")
+    suspend fun getArticleDetails(
+        @Query("page") page: Int = 1,
+        @Query("q") query: String = "tesla",
+    ) : Response<ArticleListResponse>
+
 
 }

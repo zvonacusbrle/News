@@ -1,12 +1,11 @@
 package android.tvz.hr.newz.pagination
 
-import android.content.ContentValues.TAG
 import android.tvz.hr.newz.TOP_ARTICLES
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleListResponse
+import android.tvz.hr.newz.network.model.ArticleNetworkMapperArticle
 import android.tvz.hr.newz.network.model.ArticleResponse
 import android.tvz.hr.newz.state.SortOrderState
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
@@ -30,13 +29,15 @@ class ArticlePaging @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleResponse> {
         try {
+            val mapper = ArticleNetworkMapperArticle()
             val currentPageList = params.key ?: 1
-            response = getResponse(currentPageList, newsService,query,sortState, articleGroup)
-            Log.d(TAG, "load: $sortState $articleGroup" )
-             //   newsService.getTopHeadlinesArticles(currentPageList, query)
+            response =  newsService.getTopHeadlinesArticles(currentPageList, query)
+            // getResponse(currentPageList, newsService,query,sortState, articleGroup)
+                newsService.getTopHeadlinesArticles(currentPageList, query)
 
             val responseList = mutableListOf<ArticleResponse>()
             val data = response.body()?.articleResponses ?: emptyList()
+
 
             responseList.addAll(data)
             val prevKey = if (currentPageList == 1) null else currentPageList - 1

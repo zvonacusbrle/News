@@ -1,6 +1,6 @@
 package android.tvz.hr.newz.domain
 
-data class Article(
+data class ArticleUI(
     val title: String?,
     val content: String?,
     val publishedAt: String?,

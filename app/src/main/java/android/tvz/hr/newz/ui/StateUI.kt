@@ -7,5 +7,4 @@ import kotlinx.coroutines.flow.Flow
 sealed class StateUI() {
     data class Success(val articles: Flow<PagingData<ArticleResponse>>) : StateUI()
     object Loading : StateUI()
-
 }

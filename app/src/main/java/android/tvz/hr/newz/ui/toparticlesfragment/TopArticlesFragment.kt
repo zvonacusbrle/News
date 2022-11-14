@@ -3,32 +3,32 @@ package android.tvz.hr.newz.ui.toparticlesfragment
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.tvz.hr.newz.ALL_ARTICLES
-import androidx.fragment.app.Fragment
 import android.tvz.hr.newz.R
-import android.tvz.hr.newz.TOP_ARTICLES
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
-import android.tvz.hr.newz.state.SortOrderState
 import android.tvz.hr.newz.ui.StateUI
 import android.tvz.hr.newz.ui.adapter.ArticleAdapter
 import android.tvz.hr.newz.ui.adapter.ArticleLoadStateAdapter
-import android.tvz.hr.newz.ui.viewmodel.DEFAULT_QUERY
 import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -44,6 +44,7 @@ class TopArticlesFragment : Fragment() {
     private var _binding: FragmentTopArticlesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SharedViewModel by viewModels()
+    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,9 @@ class TopArticlesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTopArticlesBinding.inflate(inflater, container, false)
-        val adapter = ArticleAdapter()
+        val adapter = ArticleAdapter(
+            onArticleClicked = { title ->  startArticleDetailFragment(title) }
+        )
         viewModel.setArticleGroup(ALL_ARTICLES)
 
 
@@ -69,13 +72,13 @@ class TopArticlesFragment : Fragment() {
                  when(state){
                      is StateUI.Success -> {
                            state.articles.collectLatest { articles ->
+                               binding.progressBar.visibility = GONE
                                binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)
                                binding.recyclerViewTop.adapter = adapter.withLoadStateHeaderAndFooter(
                                    header = ArticleLoadStateAdapter { adapter.retry() },
                                    footer = ArticleLoadStateAdapter { adapter.retry() }
                                )
                                adapter.submitData(articles)
-                               binding.progressBar.visibility = GONE
                            }
                      }
                      StateUI.Loading ->
@@ -88,6 +91,8 @@ class TopArticlesFragment : Fragment() {
 
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -137,9 +142,26 @@ class TopArticlesFragment : Fragment() {
             }
     }
 
+    private fun startArticleDetailFragment(title: String) {
+        val action = TopArticlesFragmentDirections.actionTopArticlesFragmentToArticleDetailsFragment(title)
+        findNavController().navigate(action)
+    }
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible =
+            true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible =
+            false
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
 }
+const val ARTICLE_TAG_FRAGMENT_KEY = "tagKey"
