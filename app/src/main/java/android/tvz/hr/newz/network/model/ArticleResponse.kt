@@ -23,3 +23,4 @@ data class ArticleResponse(
     @Json(name = "urlToImage")
     val urlToImage: String?
 )
+

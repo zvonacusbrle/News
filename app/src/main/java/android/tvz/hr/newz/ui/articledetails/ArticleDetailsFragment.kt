@@ -7,13 +7,17 @@ import android.tvz.hr.newz.databinding.FragmentArticleDetailsBinding
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-
+@AndroidEntryPoint
 class ArticleDetailsFragment : Fragment() {
 
     private var param1: String? = null
@@ -21,13 +25,11 @@ class ArticleDetailsFragment : Fragment() {
     private var _binding: FragmentArticleDetailsBinding? = null
     private val binding get() = _binding!!
     private val args: ArticleDetailsFragmentArgs by navArgs()
+    private val viewModel : ArticleDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            Log.d(TAG, "onCreate: $param1")
-        }
+
         setHasOptionsMenu(true);
 
     }
@@ -44,8 +46,13 @@ class ArticleDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.updateCurrentQuery(args.title)
 
-        binding.articleDetailsTitle.text = args.title
+        lifecycleScope.launchWhenCreated {
+
+        }
+
+
     }
 
 
