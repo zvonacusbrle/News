@@ -5,6 +5,8 @@ import android.tvz.hr.newz.databinding.ArticleRowBinding
 import android.tvz.hr.newz.network.model.ArticleResponse
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import kotlinx.coroutines.withContext
 
 class ArticleViewHolder(
     private val binding: ArticleRowBinding
@@ -20,6 +22,10 @@ class ArticleViewHolder(
                 onArticleClicked(article.title.toString())
                 Log.d(TAG, "onBind: ${article.title}")
             }
+            Glide.with(itemView)
+                .load(article.urlToImage)
+                .centerCrop()
+                .into(rvImageCover)
         }
     }
 }
