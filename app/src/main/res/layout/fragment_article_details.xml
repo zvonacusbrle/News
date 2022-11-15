@@ -5,21 +5,56 @@
     android:layout_height="match_parent"
     tools:context=".ui.articledetails.ArticleDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textVIew"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="56dp"
+        android:background="@color/row_colour"
+        android:backgroundTint="@color/row_colour"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_marginTop="65dp"
-        android:id="@+id/article_details_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Title"
+        <ProgressBar
+            android:id="@+id/detailsProgressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:max="3"
+            android:progress="100"
+            />
 
-        android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/detailsImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <TextView
+            android:id="@+id/detailsPublishedAt"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="start" />
+
+        <TextView
+            android:id="@+id/article_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Title"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/detailsContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+
 
 </FrameLayout>

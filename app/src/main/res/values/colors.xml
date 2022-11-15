@@ -12,4 +12,5 @@
     <color name="text_colour">#11090f</color>
     <color name="row_colour">#fbfbfb</color>
     <color name="fragment_bg_colour">#f9ecf3</color>
+    <color name="favorite_button_bg">#f5cff4</color>
 </resources>

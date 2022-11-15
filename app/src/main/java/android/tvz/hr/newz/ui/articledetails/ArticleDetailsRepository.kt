@@ -1,10 +1,8 @@
 package android.tvz.hr.newz.ui.articledetails
 
-import android.content.ContentValues.TAG
 import android.tvz.hr.newz.domain.ArticleDetailsUI
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleDetailsNetworkMapper
-import android.util.Log
 import javax.inject.Inject
 
 

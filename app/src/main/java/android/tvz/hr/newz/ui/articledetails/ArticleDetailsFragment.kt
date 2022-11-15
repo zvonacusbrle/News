@@ -2,6 +2,7 @@ package android.tvz.hr.newz.ui.articledetails
 
 
 import android.os.Bundle
+import android.tvz.hr.newz.R
 import android.tvz.hr.newz.databinding.FragmentArticleDetailsBinding
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,18 +14,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
 class ArticleDetailsFragment : Fragment() {
-
-    private var param1: String? = null
-    private var param2: String? = null
     private var _binding: FragmentArticleDetailsBinding? = null
     private val binding get() = _binding!!
     private val args: ArticleDetailsFragmentArgs by navArgs()
@@ -55,27 +52,33 @@ class ArticleDetailsFragment : Fragment() {
                 viewModel.stateUI.collect { state ->
                     when (state) {
                         is ArticleDetailsStateUI.Success -> {
-                            binding.articleDetailsTitle.text = state.article.title
+                            showArticleDetails(state)
+                            binding.detailsProgressBar.visibility = View.GONE
                         }
+                        ArticleDetailsStateUI.Loading ->
+                            binding.detailsProgressBar.visibility = View.VISIBLE
                     }
                 }
             }
         }
-
-
     }
 
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ArticleDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun showArticleDetails(state: ArticleDetailsStateUI.Success) {
+        binding.apply {
+            articleDetailsTitle.text = state.article.title
+            detailsContent.text = state.article.content
+            detailsPublishedAt.text = state.article.publishedAt
+            context?.let {
+                Glide
+                    .with(it)
+                    .load(state.article.urlToImage)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_news)
+                    .into(detailsImage)
             }
+        }
     }
+
 
     @Deprecated("Deprecated in Java", ReplaceWith("menu.clear()"))
     override fun onPrepareOptionsMenu(menu: Menu) {

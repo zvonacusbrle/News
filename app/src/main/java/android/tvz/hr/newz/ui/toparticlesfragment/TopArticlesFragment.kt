@@ -33,25 +33,20 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
 class TopArticlesFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     private var _binding: FragmentTopArticlesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SharedViewModel by viewModels()
     private var navController: NavController? = null
+    private lateinit var adapter: ArticleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -59,33 +54,32 @@ class TopArticlesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTopArticlesBinding.inflate(inflater, container, false)
-        val adapter = ArticleAdapter(
-            onArticleClicked = { title ->  startArticleDetailFragment(title) }
+        adapter = ArticleAdapter(
+            onArticleClicked = { title -> startArticleDetailFragment(title) }
         )
         viewModel.setArticleGroup(ALL_ARTICLES)
 
-
+        binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewTop.adapter =
+            adapter.withLoadStateHeaderAndFooter(
+                header = ArticleLoadStateAdapter { adapter.retry() },
+                footer = ArticleLoadStateAdapter { adapter.retry() }
+            )
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-             viewModel.stateUI.collectLatest { state ->
-                 when(state){
-                     is StateUI.Success -> {
-                           state.articles.collectLatest { articles ->
-                               binding.progressBar.visibility = GONE
-                               binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)
-                               binding.recyclerViewTop.adapter = adapter.withLoadStateHeaderAndFooter(
-                                   header = ArticleLoadStateAdapter { adapter.retry() },
-                                   footer = ArticleLoadStateAdapter { adapter.retry() }
-                               )
-                               adapter.submitData(articles)
-                           }
-                     }
-                     StateUI.Loading ->
-                     binding.progressBar.visibility = VISIBLE
-                 }
-
-             }
+                viewModel.stateUI.collectLatest { state ->
+                    when (state) {
+                        is StateUI.Success -> {
+                            state.articles.collectLatest { articles ->
+                                binding.progressBar.visibility = GONE
+                                adapter.submitData(articles)
+                            }
+                        }
+                        StateUI.Loading ->
+                            binding.progressBar.visibility = VISIBLE
+                    }
+                }
             }
         }
 
@@ -93,17 +87,8 @@ class TopArticlesFragment : Fragment() {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        lifecycleScope.launch {
-            viewModel.sortState.collect {
-                Log.d(TAG, "onCreateViewSort: $it")
-            }
-        }
-
         binding.topArticlesSearchBar.apply {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -114,38 +99,25 @@ class TopArticlesFragment : Fragment() {
                 override fun onQueryTextChange(newText: String?): Boolean {
                     binding.recyclerViewTop.scrollToPosition(0)
                     if (newText != null) {
-
                         lifecycleScope.launch {
                             viewModel.searchNews(newText)
                             viewModel.sortState.update {
                                 it
                             }
                         }
-
                     }
                     return true
                 }
             })
         }
-
-
-    }
-
-
-    companion object {
-        fun newInstance(param1: String, param2: String) =
-            TopArticlesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 
     private fun startArticleDetailFragment(title: String) {
-        val action = TopArticlesFragmentDirections.actionTopArticlesFragmentToArticleDetailsFragment(title)
+        val action =
+            TopArticlesFragmentDirections.actionTopArticlesFragmentToArticleDetailsFragment(title)
         findNavController().navigate(action)
     }
+
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible =
@@ -164,4 +136,5 @@ class TopArticlesFragment : Fragment() {
     }
 
 }
+
 const val ARTICLE_TAG_FRAGMENT_KEY = "tagKey"
