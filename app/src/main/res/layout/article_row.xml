@@ -18,7 +18,7 @@
         android:padding="0dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
             android:id="@+id/rvImageCover"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -28,21 +28,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/rcArticleTitle"
                 style="@style/articleTitle"
-                android:layout_width="match_parent"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/recycler_view_title" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/rv_favorite_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"/>
+                android:layout_width="53dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                tools:srcCompat="@drawable/ic_baseline_bookmark_border_24" />
         </LinearLayout>
 
         <TextView
