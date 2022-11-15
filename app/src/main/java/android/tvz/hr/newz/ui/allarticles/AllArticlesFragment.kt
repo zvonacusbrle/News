@@ -32,8 +32,6 @@ class AllArticlesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAllArticlesBinding.inflate(inflater, container, false)
-
-
         return binding.root
     }
 

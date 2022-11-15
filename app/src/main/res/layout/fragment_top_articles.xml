@@ -3,16 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:backgroundTint="@color/fragment_bg_colour"
     tools:context=".ui.toparticlesfragment.TopArticlesFragment">
 
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/topArticlesSearchBar"
         android:layout_width="match_parent"
-        android:layout_marginTop="50dp"
         android:layout_height="wrap_content"
-        android:queryHint="Search"/>
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/row_colour"
+        android:queryHint="Search"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressBar"

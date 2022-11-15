@@ -1,6 +1,7 @@
 package android.tvz.hr.newz.pagination
 
 import android.tvz.hr.newz.TOP_ARTICLES
+import android.tvz.hr.newz.domain.ArticleUI
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleListResponse
 import android.tvz.hr.newz.network.model.ArticleNetworkMapperArticle
@@ -18,16 +19,16 @@ class ArticlePaging @Inject constructor(
     private val query: String,
     private val sortState: SortOrderState,
     private val articleGroup: String
-) : PagingSource<Int, ArticleResponse>() {
+) : PagingSource<Int, ArticleUI>() {
     lateinit var response: Response<ArticleListResponse>
-    override fun getRefreshKey(state: PagingState<Int, ArticleResponse>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ArticleUI>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleResponse> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleUI> {
         try {
             val mapper = ArticleNetworkMapperArticle()
             val currentPageList = params.key ?: 1
@@ -36,13 +37,16 @@ class ArticlePaging @Inject constructor(
                 newsService.getTopHeadlinesArticles(currentPageList, query)
 
             val responseList = mutableListOf<ArticleResponse>()
+            val articleUIList = mutableListOf<ArticleUI>()
             val data = response.body()?.articleResponses ?: emptyList()
-
-
+            val dataUI = data.map { articleResponse ->
+                mapper.mapFromResponse(articleResponse)
+            }
+            articleUIList.addAll(dataUI)
             responseList.addAll(data)
             val prevKey = if (currentPageList == 1) null else currentPageList - 1
             return LoadResult.Page(
-                responseList,
+                articleUIList,
                 prevKey,
                 currentPageList.plus(1)
             )
@@ -52,7 +56,6 @@ class ArticlePaging @Inject constructor(
         } catch (e: HttpException) {
             return LoadResult.Error(e)
         }
-
     }
 
     private suspend fun getResponse(
