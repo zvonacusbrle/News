@@ -14,4 +14,5 @@
     <string name="button_next">Next</string>
     <string name="second_fragment_continue_to_read_some_epic_news">Continue to read some epic news</string>
     <string name="second_fragment_breaking_news_picture">Second fragment breaking news picture</string>
+    <string name="button_finish">Finish</string>
 </resources>

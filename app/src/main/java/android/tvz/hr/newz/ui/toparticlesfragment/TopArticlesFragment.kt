@@ -1,6 +1,6 @@
 package android.tvz.hr.newz.ui.toparticlesfragment
 
-import android.content.ContentValues.TAG
+
 import android.os.Bundle
 import android.tvz.hr.newz.ALL_ARTICLES
 import android.tvz.hr.newz.R
@@ -9,13 +9,14 @@ import android.tvz.hr.newz.ui.StateUI
 import android.tvz.hr.newz.ui.adapter.ArticleAdapter
 import android.tvz.hr.newz.ui.adapter.ArticleLoadStateAdapter
 import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -29,25 +30,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
 
 @AndroidEntryPoint
 class TopArticlesFragment : Fragment() {
-
-
     private var _binding: FragmentTopArticlesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SharedViewModel by viewModels()
     private var navController: NavController? = null
     private lateinit var adapter: ArticleAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,9 +96,6 @@ class TopArticlesFragment : Fragment() {
                     if (newText != null) {
                         lifecycleScope.launch {
                             viewModel.searchNews(newText)
-                            viewModel.sortState.update {
-                                it
-                            }
                         }
                     }
                     return true
@@ -121,6 +113,9 @@ class TopArticlesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible =
+            true
+
+        (activity as AppCompatActivity?)!!.findViewById<Toolbar>(R.id.toolbar).isVisible =
             true
     }
 

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.screens.SecondScreenFragment">
+    tools:context=".onboarding.screens.SecondScreenFragment"
+    android:id="@+id/secondFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +36,7 @@
             style="@style/fragmentButton"
             android:layout_marginTop="150dp"
             android:textColor="@color/white"
-            android:text="@string/button_next"
+            android:text="@string/button_finish"
             />
 
 
