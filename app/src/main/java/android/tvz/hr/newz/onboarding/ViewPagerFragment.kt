@@ -1,15 +1,13 @@
 package android.tvz.hr.newz.onboarding
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.tvz.hr.newz.R
-import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
 import android.tvz.hr.newz.databinding.FragmentViewPagerBinding
 import android.tvz.hr.newz.onboarding.screens.FirstScreenFragment
 import android.tvz.hr.newz.onboarding.screens.SecondScreenFragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
 
 class ViewPagerFragment : Fragment() {

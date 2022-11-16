@@ -12,6 +12,7 @@
         <action
             android:id="@+id/action_splashFragment_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/slide_in_right"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
         <action
@@ -28,6 +29,7 @@
         <action
             android:id="@+id/action_viewPagerFragment_to_topArticlesFragment"
             app:destination="@id/topArticlesFragment"
+            app:enterAnim="@anim/slide_in_right"
             app:popUpTo="@id/viewPagerFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -38,7 +40,8 @@
         tools:layout="@layout/fragment_top_articles" >
         <action
             android:id="@+id/action_topArticlesFragment_to_articleDetailsFragment"
-            app:destination="@id/articleDetailsFragment" />
+            app:destination="@id/articleDetailsFragment"
+            app:enterAnim="@anim/slide_in_right" />
         <argument
             android:name="title"
             app:argType="string" />
@@ -46,8 +49,8 @@
     <fragment
         android:id="@+id/allArticlesFragment"
         android:name="android.tvz.hr.newz.ui.allarticles.AllArticlesFragment"
-        android:label="fragment_all_articles"
-        tools:layout="@layout/fragment_all_articles" >
+        android:label="All articles"
+        tools:layout="@layout/fragment_all_articles">
         <action
             android:id="@+id/action_allArticlesFragment2_to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment" />
@@ -55,8 +58,8 @@
     <fragment
         android:id="@+id/articleDetailsFragment"
         android:name="android.tvz.hr.newz.ui.articledetails.ArticleDetailsFragment"
-        android:label="fragment_article_details"
-        tools:layout="@layout/fragment_article_details" >
+        android:label="Details"
+        tools:layout="@layout/fragment_article_details">
         <argument
             android:name="title"
             app:argType="string" />

@@ -2,14 +2,14 @@ package android.tvz.hr.newz.onboarding.screens
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.tvz.hr.newz.R
+import android.tvz.hr.newz.databinding.FragmentSecondScreenBinding
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.tvz.hr.newz.R
-import android.tvz.hr.newz.databinding.FragmentSecondScreenBinding
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

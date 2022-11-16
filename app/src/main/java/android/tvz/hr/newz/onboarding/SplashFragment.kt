@@ -4,33 +4,37 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
+import android.tvz.hr.newz.R
+import android.tvz.hr.newz.databinding.FragmentSplashBinding
+import android.tvz.hr.newz.onboarding.screens.FINISHED
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.tvz.hr.newz.R
-import android.tvz.hr.newz.onboarding.screens.FINISHED
-import android.tvz.hr.newz.onboarding.screens.ONBOARDING
+import android.view.animation.AnimationUtils
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class SplashFragment : Fragment() {
 
+
+    private var _binding: FragmentSplashBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentSplashBinding.inflate(inflater, container, false)
+
+        val backgroundImg = binding.njuzImageSplashScreen
+        val sideAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_splash)
+        backgroundImg.startAnimation(sideAnimation)
+
         if(checkOnBoardingFinished()){
             Handler(Looper.getMainLooper()).postDelayed({
                 findNavController().navigate(R.id.action_splashFragment_to_topArticlesFragment)
@@ -46,7 +50,7 @@ class SplashFragment : Fragment() {
 
 
 
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+        return binding.root
     }
 
     private fun checkOnBoardingFinished() : Boolean{
@@ -65,5 +69,8 @@ class SplashFragment : Fragment() {
             false
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
