@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".onboarding.screens.FirstScreenFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="555dp"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/first_fragment_breaking_news_picture"
+            android:src="@drawable/breaking_news" />
+
+        <TextView
+            android:id="@+id/firstFragmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:height="20sp"
+            android:layout_marginTop="20dp"
+            android:text="@string/first_fragment_join_us_at_breaking_news" />
+
+
+        <Button
+            android:id="@+id/firstFragmentButton"
+            style="@style/fragmentButton"
+            android:layout_marginTop="150dp"
+            android:textColor="@color/white"
+            android:text="@string/button_next"
+           />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
