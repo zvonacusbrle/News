@@ -7,22 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.tvz.hr.newz.R
 import android.tvz.hr.newz.databinding.FragmentFirstScreenBinding
-import android.tvz.hr.newz.databinding.FragmentViewPagerBinding
+import android.tvz.hr.newz.databinding.FragmentSecondScreenBinding
 
 
-class FirstScreenFragment : Fragment() {
-
-    private var _binding: FragmentFirstScreenBinding? = null
+class SecondScreenFragment : Fragment() {
+    private var _binding: FragmentSecondScreenBinding? = null
     private val binding get() = _binding!!
-
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentFirstScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentSecondScreenBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -31,5 +28,4 @@ class FirstScreenFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

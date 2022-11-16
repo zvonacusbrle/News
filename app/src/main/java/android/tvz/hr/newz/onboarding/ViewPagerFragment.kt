@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.tvz.hr.newz.R
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
 import android.tvz.hr.newz.databinding.FragmentViewPagerBinding
+import android.tvz.hr.newz.onboarding.screens.FirstScreenFragment
+import android.tvz.hr.newz.onboarding.screens.SecondScreenFragment
 
 
 class ViewPagerFragment : Fragment() {
@@ -27,8 +29,17 @@ class ViewPagerFragment : Fragment() {
         _binding = FragmentViewPagerBinding.inflate(inflater, container, false)
 
         val fragmentList = arrayListOf<Fragment>(
-
+            FirstScreenFragment(),
+            SecondScreenFragment()
         )
+
+        val adapter = ViewPagerAdapter(
+            fragmentList,
+            requireActivity().supportFragmentManager,
+            lifecycle
+        )
+
+        binding.viewPager.adapter = adapter
 
         return binding.root
     }
