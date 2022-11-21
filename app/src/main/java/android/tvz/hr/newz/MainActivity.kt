@@ -27,12 +27,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val toolbar = binding.toolbar
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
                 as NavHostFragment
         navController = navHostFragment.findNavController()
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.topArticlesFragment, R.id.allArticlesFragment)
+            setOf(
+                R.id.topArticlesFragment,
+                R.id.allArticlesFragment)
         )
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
