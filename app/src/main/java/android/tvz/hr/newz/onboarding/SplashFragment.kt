@@ -7,6 +7,7 @@ import android.os.Looper
 import android.tvz.hr.newz.R
 import android.tvz.hr.newz.databinding.FragmentSplashBinding
 import android.tvz.hr.newz.onboarding.screens.FINISHED
+import android.tvz.hr.newz.onboarding.screens.ONBOARDING
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,30 +36,23 @@ class SplashFragment : Fragment() {
         val sideAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_splash)
         backgroundImg.startAnimation(sideAnimation)
 
-        if(checkOnBoardingFinished()){
+        if (checkOnBoardingFinished()) {
             Handler(Looper.getMainLooper()).postDelayed({
                 findNavController().navigate(R.id.action_splashFragment_to_topArticlesFragment)
             }, 3000)
-        }else {
+        } else {
             Handler(Looper.getMainLooper()).postDelayed({
                 findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
             }, 3000)
         }
-
-
-
-
-
-
         return binding.root
     }
 
-    private fun checkOnBoardingFinished() : Boolean{
-        val sharedPref = requireActivity().getSharedPreferences("ONBOARDING", Context.MODE_PRIVATE)
+    private fun checkOnBoardingFinished(): Boolean {
+        val sharedPref = requireActivity().getSharedPreferences(ONBOARDING, Context.MODE_PRIVATE)
         return sharedPref.getBoolean(FINISHED, false)
 
     }
-
 
     override fun onResume() {
         super.onResume()

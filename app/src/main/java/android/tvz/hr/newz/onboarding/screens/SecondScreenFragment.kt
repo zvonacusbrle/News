@@ -17,8 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class SecondScreenFragment : Fragment() {
     private var _binding: FragmentSecondScreenBinding? = null
     private val binding get() = _binding!!
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

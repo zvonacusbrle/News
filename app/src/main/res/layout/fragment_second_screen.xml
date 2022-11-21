@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".onboarding.screens.SecondScreenFragment"
@@ -13,31 +14,35 @@
         android:layout_marginTop="150dp">
 
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewSecondFragment"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/second_fragment_breaking_news_picture"
-            android:src="@drawable/breaking_news" />
+            android:backgroundTint="#EEF3F7"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:srcCompat="@drawable/breaking_news" />
 
         <TextView
             android:id="@+id/secondFragmentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:height="20sp"
             android:layout_marginTop="20dp"
-            android:text="@string/second_fragment_continue_to_read_some_epic_news" />
+            android:text="@string/second_fragment_continue_to_read_some_epic_news"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
 
-        <Button
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/secondFragmentButton"
-            style="@style/fragmentButton"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            android:layout_gravity="end"
             android:layout_marginTop="150dp"
-            android:textColor="@color/white"
-            android:text="@string/button_finish"
-            />
+            android:background="@color/fragment_bg_colour"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:layout_height="40dp"
+            android:layout_width="30dp"/>
 
 
     </LinearLayout>

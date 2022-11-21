@@ -14,33 +14,35 @@
         android:layout_marginTop="150dp">
 
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewFirstFragment"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/first_fragment_breaking_news_picture"
-            android:src="@drawable/breaking_news" />
+            android:backgroundTint="#EEF3F7"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:srcCompat="@drawable/breaking_news" />
 
         <TextView
             android:id="@+id/firstFragmentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:height="20sp"
             android:layout_marginTop="20dp"
-            android:text="@string/first_fragment_join_us_at_breaking_news" />
+            android:text="@string/first_fragment_join_us_at_breaking_news"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
 
-        <Button
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/firstFragmentButton"
-            style="@style/fragmentButton"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            android:layout_gravity="end"
             android:layout_marginTop="150dp"
-            android:textColor="@color/white"
-            android:text="@string/button_next"
-           />
-
-
+            android:background="@color/fragment_bg_colour"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:layout_height="40dp"
+            android:layout_width="30dp"/>
     </LinearLayout>
 
 
