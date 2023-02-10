@@ -1,14 +1,17 @@
 package android.tvz.hr.newz.ui.toparticlesfragment
 
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.tvz.hr.newz.ALL_ARTICLES
 import android.tvz.hr.newz.R
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
+import android.tvz.hr.newz.domain.ArticleUI
 import android.tvz.hr.newz.ui.StateUI
 import android.tvz.hr.newz.ui.adapter.ArticleAdapter
 import android.tvz.hr.newz.ui.adapter.ArticleLoadStateAdapter
 import android.tvz.hr.newz.ui.viewmodel.SharedViewModel
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -50,8 +53,11 @@ class TopArticlesFragment : Fragment() {
     ): View {
         _binding = FragmentTopArticlesBinding.inflate(inflater, container, false)
         adapter = ArticleAdapter(
-            onArticleClicked = { title -> startArticleDetailFragment(title) }
+            onArticleClicked = { title -> startArticleDetailFragment(title) },
+            onFavoriteClicked = { 1 }
         )
+
+
         viewModel.setArticleGroup(ALL_ARTICLES)
 
         binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)

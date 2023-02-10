@@ -51,7 +51,6 @@ class SplashFragment : Fragment() {
     private fun checkOnBoardingFinished(): Boolean {
         val sharedPref = requireActivity().getSharedPreferences(ONBOARDING, Context.MODE_PRIVATE)
         return sharedPref.getBoolean(FINISHED, false)
-
     }
 
     override fun onResume() {

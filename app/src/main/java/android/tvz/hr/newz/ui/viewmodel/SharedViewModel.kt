@@ -2,11 +2,13 @@
 
 package android.tvz.hr.newz.ui.viewmodel
 
+import android.tvz.hr.newz.domain.ArticleUI
 import android.tvz.hr.newz.repository.ArticleRepository
 import android.tvz.hr.newz.state.SortOrderState
 import android.tvz.hr.newz.ui.StateUI
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -46,10 +48,6 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-
-
-
-
     fun searchNews(query: String) {
         if (query.isNotEmpty()) {
             currentQuery.value = query
@@ -66,6 +64,9 @@ class SharedViewModel @Inject constructor(
     fun setArticleGroup(group: String) {
         articleGroup.value = group
     }
+
+
+
 
 
 

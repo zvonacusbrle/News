@@ -17,17 +17,16 @@ class ArticleDetailsViewModel @Inject constructor(
     private val _stateUI = MutableStateFlow<ArticleDetailsStateUI>(ArticleDetailsStateUI.Loading)
     val stateUI  = _stateUI.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-           val articleDetails = articleDetailsRepository.getArticleByTitle(currentQuery.value)
-            _stateUI.value = ArticleDetailsStateUI.Success(articleDetails)
-        }
-    }
-
     fun updateCurrentQuery(title: String) {
         currentQuery.value = title
+        getArticle(currentQuery.value)
+    }
+
+    private fun getArticle(value: String) = viewModelScope.launch {
+        val articleDetails = articleDetailsRepository.getArticleByTitle(value)
+        _stateUI.value = ArticleDetailsStateUI.Success(articleDetails)
     }
 }
 
 val QUERY =
-    "Country star Dolly Parton gets \$100m award from Amazon founder Jeff Bezos"
+    ""

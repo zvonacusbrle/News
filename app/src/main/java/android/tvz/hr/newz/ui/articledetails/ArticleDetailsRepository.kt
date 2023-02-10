@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ArticleDetailsRepository @Inject constructor(
     private val newsService: NewsService
 ) {
-    val mapper = ArticleDetailsNetworkMapper()
+    private val mapper = ArticleDetailsNetworkMapper()
     suspend fun getArticleByTitle(title: String) : ArticleDetailsUI {
 
         val articles = newsService.getArticleDetails(query = title)

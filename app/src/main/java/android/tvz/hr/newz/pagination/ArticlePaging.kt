@@ -34,7 +34,7 @@ class ArticlePaging @Inject constructor(
             val currentPageList = params.key ?: 1
             response =  newsService.getTopHeadlinesArticles(currentPageList, query)
             // getResponse(currentPageList, newsService,query,sortState, articleGroup)
-                newsService.getTopHeadlinesArticles(currentPageList, query)
+            //    newsService.getTopHeadlinesArticles(currentPageList, query)
 
             val responseList = mutableListOf<ArticleResponse>()
             val articleUIList = mutableListOf<ArticleUI>()

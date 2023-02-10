@@ -47,7 +47,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="30dp"
-                android:background="@color/fragment_bg_colour"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
                 tools:srcCompat="@drawable/ic_baseline_bookmark_border_24" />
         </LinearLayout>

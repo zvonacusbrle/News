@@ -5,5 +5,5 @@ data class ArticleUI(
     val content: String?,
     val publishedAt: String?,
     val urlToImage: String?,
-    val onArticleCheckedChange: Boolean = false
+    var onArticleCheckedChange: Boolean = false
 )

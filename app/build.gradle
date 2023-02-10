@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "API_KEY", "\"9eb3182f26a2409ab32cce19cea63d70\""
+        buildConfigField "String", "API_KEY", "\"ae3db25bde8e484aa4bcdf94d2e7fb40\""
     }
 
     buildTypes {
