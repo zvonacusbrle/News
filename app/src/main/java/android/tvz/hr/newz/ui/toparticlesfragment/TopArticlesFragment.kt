@@ -3,8 +3,8 @@ package android.tvz.hr.newz.ui.toparticlesfragment
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.tvz.hr.newz.ALL_ARTICLES
 import android.tvz.hr.newz.R
+
 import android.tvz.hr.newz.databinding.FragmentTopArticlesBinding
 import android.tvz.hr.newz.domain.ArticleUI
 import android.tvz.hr.newz.ui.StateUI
@@ -34,7 +34,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
+import android.tvz.hr.newz.ui.viewmodel.TOP_ARTICLES
 
 
 @AndroidEntryPoint
@@ -58,7 +58,7 @@ class TopArticlesFragment : Fragment() {
         )
 
 
-        viewModel.setArticleGroup(ALL_ARTICLES)
+        viewModel.setArticleGroup(TOP_ARTICLES)
 
         binding.recyclerViewTop.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewTop.adapter =
@@ -72,6 +72,7 @@ class TopArticlesFragment : Fragment() {
                 viewModel.stateUI.collectLatest { state ->
                     when (state) {
                         is StateUI.Success -> {
+
                             state.articles.collectLatest { articles ->
                                 binding.progressBar.visibility = GONE
                                 adapter.submitData(articles)

@@ -1,12 +1,13 @@
 package android.tvz.hr.newz.pagination
 
-import android.tvz.hr.newz.TOP_ARTICLES
+
 import android.tvz.hr.newz.domain.ArticleUI
 import android.tvz.hr.newz.network.NewsService
 import android.tvz.hr.newz.network.model.ArticleListResponse
 import android.tvz.hr.newz.network.model.ArticleNetworkMapperArticle
 import android.tvz.hr.newz.network.model.ArticleResponse
 import android.tvz.hr.newz.state.SortOrderState
+import android.tvz.hr.newz.ui.viewmodel.TOP_ARTICLES
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
@@ -32,8 +33,9 @@ class ArticlePaging @Inject constructor(
         try {
             val mapper = ArticleNetworkMapperArticle()
             val currentPageList = params.key ?: 1
-            response =  newsService.getTopHeadlinesArticles(currentPageList, query)
-            // getResponse(currentPageList, newsService,query,sortState, articleGroup)
+            response =
+            getResponse(currentPageList, newsService,query,sortState, articleGroup)
+           // newsService.getTopHeadlinesArticles(currentPageList, query)
             //    newsService.getTopHeadlinesArticles(currentPageList, query)
 
             val responseList = mutableListOf<ArticleResponse>()

@@ -66,6 +66,3 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-
-const val TOP_ARTICLES = "topArticles"
-const val ALL_ARTICLES = "allArticles"

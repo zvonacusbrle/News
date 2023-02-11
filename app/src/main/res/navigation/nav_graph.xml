@@ -52,7 +52,7 @@
         android:label="All articles"
         tools:layout="@layout/fragment_all_articles">
         <action
-            android:id="@+id/action_allArticlesFragment2_to_articleDetailsFragment"
+            android:id="@+id/action_allArticlesFragment_to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment" />
     </fragment>
     <fragment
